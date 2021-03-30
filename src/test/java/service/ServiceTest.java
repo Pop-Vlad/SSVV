@@ -70,11 +70,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id1", "name1", 936, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
     }
 
     @Test(expected = ValidationException.class)
@@ -88,11 +89,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id3", "name1", 936, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
     }
 
     @Test(expected = ValidationException.class)
@@ -106,11 +108,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id5", "name1", 936, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
     }
 
     @Test(expected = ValidationException.class)
@@ -124,11 +127,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id7", "name1", 936, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
     }
 
     @Test(expected = ValidationException.class)
@@ -142,11 +146,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id9", "name1", 936, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
     }
 
     @Test
@@ -155,11 +160,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("1", "name1", 936, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size(), after.size());
+        Assert.assertNotNull(added);
     }
 
     @Test
@@ -168,11 +174,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id9", "name1", 0, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
     }
 
     @Test(expected = ValidationException.class)
@@ -181,11 +188,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id9", "name1", -1, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNotNull(added);
     }
 
     @Test
@@ -194,11 +202,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id9", "name1", 1, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
     }
 
     @Test
@@ -207,11 +216,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id9", "name1", Integer.MAX_VALUE, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
     }
 
     @Test
@@ -220,11 +230,12 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id9", "name1", Integer.MAX_VALUE - 1, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
     }
 
     @Test(expected = ValidationException.class)
@@ -233,10 +244,11 @@ public class ServiceTest {
         service.getAllStudenti().forEach(before::add);
 
         Student s = new Student("id9", "name1", Integer.MAX_VALUE + 1, "student@gmail.com");
-        service.addStudent(s);
+        Student added = service.addStudent(s);
 
         List<Student> after = new ArrayList<>();
         service.getAllStudenti().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNotNull(added);
     }
 }
