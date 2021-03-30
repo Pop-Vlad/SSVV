@@ -251,4 +251,32 @@ public class ServiceTest {
         Assert.assertEquals(before.size() + 1, after.size());
         Assert.assertNotNull(added);
     }
+
+    @Test
+    public void tc_wbt_1_AddAssignmentNotInList() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("id1", "desc1", 9, 7);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test
+    public void tc_wbt_2_AddAssignmentAlreadyInList() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("1", "desc1", 9, 7);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNotNull(added);
+    }
 }
