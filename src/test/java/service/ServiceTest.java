@@ -252,8 +252,9 @@ public class ServiceTest {
         Assert.assertNotNull(added);
     }
 
+
     @Test
-    public void tc_wbt_1_AddAssignmentNotInList() {
+    public void tc_wbt_1_AddAssignment_Valid() {
         List<Tema> before = new ArrayList<>();
         service.getAllTeme().forEach(before::add);
 
@@ -266,8 +267,134 @@ public class ServiceTest {
         Assert.assertNull(added);
     }
 
+    @Test(expected = ValidationException.class)
+    public void tc_wbt_2_AddAssignment_IdNull() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema(null, "desc1", 9, 7);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void tc_wbt_3_AddAssignment_IdEmpty() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("", "desc1", 9, 7);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void tc_wbt_4_AddAssignment_DescriptionNull() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("id1", null, 9, 7);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void tc_wbt_5_AddAssignment_DescriptionEmpty() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("id1", "", 9, 7);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void tc_wbt_6_AddAssignment_DeadlineSmaller() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("id1", "desc1", -1, 7);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void tc_wbt_7_AddAssignment_DeadlineGreater() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("id1", "desc1", 20, 7);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void tc_wbt_8_AddAssignment_ReceivedSmaller() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("id1", "desc1", 9, -1);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void tc_wbt_9_AddAssignment_ReceivedGreater() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("id1", "desc1", 9, 20);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void tc_wbt_10_AddAssignment_DeadlineBeforeReceived() {
+        List<Tema> before = new ArrayList<>();
+        service.getAllTeme().forEach(before::add);
+
+        Tema a = new Tema("id1", "desc1", 9, 11);
+        Tema added = service.addTema(a);
+
+        List<Tema> after = new ArrayList<>();
+        service.getAllTeme().forEach(after::add);
+        Assert.assertEquals(before.size(), after.size());
+        Assert.assertNull(added);
+    }
+
     @Test
-    public void tc_wbt_2_AddAssignmentAlreadyInList() {
+    public void tc_wbt_11_AddAssignmentAlreadyInList() {
         List<Tema> before = new ArrayList<>();
         service.getAllTeme().forEach(before::add);
 
