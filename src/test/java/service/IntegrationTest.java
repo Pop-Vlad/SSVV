@@ -13,7 +13,6 @@ import repository.TemaXMLRepo;
 import validation.NotaValidator;
 import validation.StudentValidator;
 import validation.TemaValidator;
-import validation.ValidationException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class IntegrationTest {
         studentRepository.save(new Student("1", "student1", 936, "student1@gmail.com"));
         studentRepository.save(new Student("2", "student2", 937, "student2@gmail.com"));
         studentRepository.save(new Student("3", "student3", 924, "student3@gmail.com"));
-        assignmentRepository.save(new Tema("1", "descr1", 6, 4));
+        assignmentRepository.save(new Tema("1", "descr1", 12, 1));
         assignmentRepository.save(new Tema("2", "descr2", 8, 6));
         gradeRepository.save(new Nota("1", "1", "2", 9.5, LocalDate.of(2020, 12, 20)));
         gradeRepository.save(new Nota("2", "2", "1", 8.5, LocalDate.of(2020, 12, 20)));
@@ -64,7 +63,21 @@ public class IntegrationTest {
         service = null;
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
+    public void tc_Integration_AddStudentValid() {
+        List<Student> before = new ArrayList<>();
+        service.getAllStudenti().forEach(before::add);
+
+        Student s = new Student("id1", "name1", 936, "student@gmail.com");
+        Student added = service.addStudent(s);
+
+        List<Student> after = new ArrayList<>();
+        service.getAllStudenti().forEach(after::add);
+        Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test
     public void tc_Integration_AddGradeValid() {
         List<Nota> before = new ArrayList<>();
         service.getAllNote().forEach(before::add);
@@ -108,7 +121,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void tc_Integration_AddStudentValid() {
+    public void tc_Integration_Incremental_AddStudent() {
         List<Student> before = new ArrayList<>();
         service.getAllStudenti().forEach(before::add);
 
@@ -122,7 +135,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void tc_Integration_AddAssignment() {
+    public void tc_Integration_Incremental_AddAssignment() {
         List<Student> beforeStudent = new ArrayList<>();
         service.getAllStudenti().forEach(beforeStudent::add);
         List<Tema> beforeAssignment = new ArrayList<>();
@@ -146,7 +159,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void tc_Integration_AddGrade() {
+    public void tc_Integration_Incremental_AddGrade() {
         List<Student> beforeStudent = new ArrayList<>();
         service.getAllStudenti().forEach(beforeStudent::add);
         List<Tema> beforeAssignment = new ArrayList<>();
