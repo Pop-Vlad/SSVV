@@ -70,25 +70,11 @@ public class IntegrationTest {
         service.getAllNote().forEach(before::add);
 
         Nota n = new Nota("3", "2", "1", 9.3, LocalDate.of(2020, 12, 20));
-        double added = service.addNota(n, "");
+        service.addNota(n, "");
 
         List<Nota> after = new ArrayList<>();
         service.getAllNote().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
-    }
-
-    @Test
-    public void tc_Integration_AddStudentValid() {
-        List<Student> before = new ArrayList<>();
-        service.getAllStudenti().forEach(before::add);
-
-        Student s = new Student("id1", "name1", 936, "student@gmail.com");
-        Student added = service.addStudent(s);
-
-        List<Student> after = new ArrayList<>();
-        service.getAllStudenti().forEach(after::add);
-        Assert.assertEquals(before.size() + 1, after.size());
-        Assert.assertNull(added);
     }
 
     @Test
@@ -114,10 +100,76 @@ public class IntegrationTest {
         service.getAllNote().forEach(before::add);
 
         Nota n = new Nota("id4", "id1", "id1", 8.3, LocalDate.of(2020, 12, 20));
-        double added = service.addNota(n, "");
+        service.addNota(n, "");
 
         List<Nota> after = new ArrayList<>();
         service.getAllNote().forEach(after::add);
         Assert.assertEquals(before.size() + 1, after.size());
+    }
+
+    @Test
+    public void tc_Integration_AddStudentValid() {
+        List<Student> before = new ArrayList<>();
+        service.getAllStudenti().forEach(before::add);
+
+        Student s = new Student("id1", "name1", 936, "student@gmail.com");
+        Student added = service.addStudent(s);
+
+        List<Student> after = new ArrayList<>();
+        service.getAllStudenti().forEach(after::add);
+        Assert.assertEquals(before.size() + 1, after.size());
+        Assert.assertNull(added);
+    }
+
+    @Test
+    public void tc_Integration_AddAssignment() {
+        List<Student> beforeStudent = new ArrayList<>();
+        service.getAllStudenti().forEach(beforeStudent::add);
+        List<Tema> beforeAssignment = new ArrayList<>();
+        service.getAllTeme().forEach(beforeAssignment::add);
+
+        Student s = new Student("id1", "name1", 936, "student@gmail.com");
+        Student addedS = service.addStudent(s);
+        Assert.assertNull(addedS);
+
+        Tema a = new Tema("id1", "desc1", 11, 7);
+        Tema addedA = service.addTema(a);
+        Assert.assertNull(addedA);
+
+        List<Student> afterStudent = new ArrayList<>();
+        service.getAllStudenti().forEach(afterStudent::add);
+        List<Tema> afterAssignment = new ArrayList<>();
+        service.getAllTeme().forEach(afterAssignment::add);
+
+        Assert.assertEquals(beforeStudent.size() + 1, afterStudent.size());
+        Assert.assertEquals(beforeAssignment.size() + 1, afterAssignment.size());
+    }
+
+    @Test
+    public void tc_Integration_AddGrade() {
+        List<Student> beforeStudent = new ArrayList<>();
+        service.getAllStudenti().forEach(beforeStudent::add);
+        List<Tema> beforeAssignment = new ArrayList<>();
+        service.getAllTeme().forEach(beforeAssignment::add);
+
+        Student s = new Student("id1", "name1", 936, "student@gmail.com");
+        Student addedS = service.addStudent(s);
+        Assert.assertNull(addedS);
+
+        Tema a = new Tema("id1", "desc1", 11, 7);
+        Tema addedA = service.addTema(a);
+        Assert.assertNull(addedA);
+
+        Nota g = new Nota("id4", "id1", "id1", 8.3, LocalDate.of(2020, 12, 20));
+        Nota addedG = service.addNota(g, "feedback");
+        Assert.assertNull(addedG);
+
+        List<Student> afterStudent = new ArrayList<>();
+        service.getAllStudenti().forEach(afterStudent::add);
+        List<Tema> afterAssignment = new ArrayList<>();
+        service.getAllTeme().forEach(afterAssignment::add);
+
+        Assert.assertEquals(beforeStudent.size() + 1, afterStudent.size());
+        Assert.assertEquals(beforeAssignment.size() + 1, afterAssignment.size());
     }
 }
